@@ -22,28 +22,28 @@
 
 ############################################################################
 
-#그리디 알고리즘을 사용
-#max값 중복한계도달시 두번째 max값을 사용해 중복을 회피한다.
+# #그리디 알고리즘을 사용
+# #max값 중복한계도달시 두번째 max값을 사용해 중복을 회피한다.
 
-# n = 배열의 크기, m = 숫자덧셈 횟수, k = 중복
-n, m, k = map(int, input().split())
+# # n = 배열의 크기, m = 숫자덧셈 횟수, k = 중복
+# n, m, k = map(int, input().split())
 
-# 배열 입력받기
-arr = list(map(int, input().split()))
+# # 배열 입력받기
+# arr = list(map(int, input().split()))
 
-# 큰 수와 두번째 큰 수 구하기
-arr = sorted(arr, reverse=True)
-num1max = arr[0]
-num2max = arr[1]
+# # 큰 수와 두번째 큰 수 구하기
+# arr = sorted(arr, reverse=True)
+# num1max = arr[0]
+# num2max = arr[1]
 
-#게산과정
-sum = 0
-for i in range(1,m+1):
-    if (i % k != 0):
-        sum += num1max
-    else:
-        sum += num2max       
-print(sum)
+# #게산과정
+# sum = 0
+# for i in range(1,m+1):
+#     if (i % k != 0):
+#         sum += num1max
+#     else:
+#         sum += num2max       
+# print(sum)
 
 
 
@@ -52,24 +52,25 @@ print(sum)
 
 
 ############################################################################
-# # 최적화version
-#     # 결과적으로 m번 더하기는 k+1개의 수로 이루어진 수열의 반복이다.
-#     # ex) 5+5+5+4/ 5+5+5+4/ 5+5...
-#     # 따라서 수열의 반복횟수를 구하면 큰 수의 계산이라도 빠르게 계산이 가능하다.
 
-# # n = 배열의 크기, m = 숫자덧셈 횟수, k = 중복
-# n, m, k = map(int, input().split())
+# 최적화
+    # 결과적으로 m번 더하기는 k+1개의 수로 이루어진 수열의 반복이다.
+    # ex) 5+5+5+4/ 5+5+5+4/ 5+5...
+    # 따라서 수열의 반복횟수를 구하면 큰 수의 계산이라도 빠르게 계산이 가능하다.
 
-# arr = list(map(int, input().split()))
+# n = 배열의 크기, m = 숫자덧셈 횟수, k = 중복
+n, m, k = map(int, input().split())
 
-# arr = sorted(arr, reverse=True)
-# num1max = arr[0]
-# num2max = arr[1]
+arr = list(map(int, input().split()))
 
-# reptTime = m // (k+1)
+arr = sorted(arr, reverse=True)
+num1max = arr[0]
+num2max = arr[1]
 
-# reptNum = num1max * k + num2max
-# sum = reptNum * reptTime + (m%(k+1))*num1max
+reptTime = m // (k+1)
 
-# print(sum)
+reptNum = num1max * k + num2max
+sum = reptNum * reptTime + (m%(k+1))*num1max
+
+print(sum)
 

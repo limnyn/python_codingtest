@@ -15,8 +15,6 @@
 #     첫째 줄에 게임의 룰에 맞게 선택한 카드에 적힌 숫자를 출력한다.
 
 
-
-
 # 입력 예시 1
 #     3 3
 #     3 1 2
@@ -32,5 +30,50 @@
 # 출력 예시 2
 #     3
 
+###############################################################
 
+
+# # 첫 문제 풀이시도
+
+# # 입력
+# m, n = map(int, input().split())
+
+# # 2차원 리스트 생성
+# a = []
+# for i in range(m):
+#     arr = list(map(int, input().split()))
+#     line = []
+#     for j in range(n):
+#         line.append(arr[j])
+#     a.append(line)
+# print(a)    # 2차원 리스트 a에 카드가 놓여있다
+
+
+# # 각 카드줄에서 가장 작은 값을 선택하고 다음 열과 비교한다
+# minNum = min(a[0])
+# for i in range(1,m):
+#     if(minNum < min(a[i])):
+#         minNum = min(a[i])
+# print(minNum)
+
+
+
+
+
+###############################################################
+# 최적화
+
+# 그리디 알고리즘을 통해 각 행마다 가장 작은 수를 찾고, 그 수중에서 가장 큰 수를 찾아 해결이 가능하다.
+# 따라서 min 값들의 리스트 중 max 값을 반환하면 빠르게 해결 가능하다.
+
+
+m, n = map(int, input().split())
+minNumbers = []
+for i in range(m):
+    minNumbers.append(min(list(map(int, input().split()))))
+maxNumber = max(minNumbers)
+print(maxNumber)
+
+
+    
 
