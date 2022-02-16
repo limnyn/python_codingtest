@@ -106,6 +106,7 @@ print(data)
         # permutations는 리스트같은 iterable 객체에서 r개의 데이터를 뽑아 일렬로 나열하는 모든 경우(순열) 계산
             # 클래스이기 때문에 초기화 이후에는 리스트 자료형으로 변환하여 사용한다.
 from itertools import permutations
+from operator import le
 data = ['A', 'B', 'C']
 result = list(permutations(data, 3))
 print(result)
@@ -153,5 +154,79 @@ print(result)
 
 
 # bisect
+    # bisect 라이브러리는 정렬된 배열에서 특정한 원소를 찾아야 할 때 효과적으로 사용 가능하다.
+    # bisect_left()와 bisect_right()가 주로 사용되며 시간복잡도는 O에 동작한다.
+        
+    # bisect_left(a, x) : 정렬된 순서를 유지하면서 리스트 a에 데이터 x를 삽입할 가장 왼쪽 인덱스를 찾는 메서드
+    # bisect_right(a, x): 정렬된 순서를 유지하면서 리스트 a에 데이터 x를 삽입할 가장 오른쪽 인덱스를 찾는 메서드
+from bisect import bisect_left, bisect_right
+
+a = [1, 2, 4, 4, 8]
+x = 4
+
+print(bisect_left(a, x))
+print(bisect_right(a, x))
+
+    # 정렬된 리스트에서 값이 특정 범위에 속하는 원소의 개수 구하기에 사용가능
+        # 값이 [left_value, right_value]인 데이터의 개수를 반환하는 함수
+def count_by_range(a, left_value, right_value):
+    right_index = bisect_right(a, right_value)
+    left_index = bisect_left(a, left_value)
+    return right_index - left_index
+
+a = [1, 2, 3, 3, 3, 3, 4, 4, 8, 9]
+            # 값이 4인 데이터 개수 출력
+print(count_by_range(a, 4, 4))
+            # 값이 [-1, 3]범위에 있는 데이터 개수 출력
+print(count_by_range(a, -1, 3))
+
+
+
+# collections
+    # deque, counter등의 자료구조를 제공하느 ㄴ라이브러리
+    # deque를 사용해 큐를 구현한다.
+    # list는 뒤쪽의 원소의 추가/제거 시간복잡도는 O(1)이지만 가장 앞쪽에 있는 원소 추가/제거 시간복잡도는O(N)이다
+    # list의 앞쪽 데이터 처리에 많은 시간이 걸리기 때문에 deque를 사용하기도한다.
+    # deque는 인덱싱, 슬라이싱 등의 기능을 사용할 수 없지만, 데이터의 시작/끝부분에 데이터 추가/삭제시 빠르게 할 수 있다.
+
+    # popleft() == deque의 첫 번째 원소 제거
+    # pop() == 마지막 원소 제거
+    # appendleft(x) == deque의 첫 번째 인덱스에 x 삽입
+    # append(x) == deque의 마지막 인덱스에 x 삽입 
+from collections import deque
+data = deque([2,3,4])
+data.appendleft(1)
+data.append(5)
+print(data)
+print(list(data))
+    # collections 라이브러리의 Counter는 등장 횟수를 센다
+    # iterable 객제차 주어졌을 때, 해당 객체 내부의 원소가 몇번씩 등장했는지 알려준다.
+from collections import Counter
+counter = Counter(['red', 'blue', 'red','green','blue','blue'])
+print(counter['blue'])
+print(counter['green'])
+print(dict(counter)) # 사전 자료형으로 변환
+
+
+
+# math
+    # 수학적인 기능을 포함하는 라이브러리
+    # 팩토리얼, 제곱근, 최대공약수(GCD) 등을 계산해주는 기능을 포함하고 있다.
+        # factorial(x) == x!값을 반환한다.
+import math
+print(math.factorial(5))
+        # sqrt(x) == 제곱근을 반환한다
+print(math.sqrt(6))
+        # gcd(a, b) == a와 b의 최대공약수를 반환한다.
+print(math.gcd(21,14))
+        # math 라이브러리는 pi 와 e도 제공한다
+print(math.e)
+print(math.pi)
+        
+
+# 자신만의 알고리즘 노트 만들기
+    # 메서드를 만들어 라이브러리화 시키기
+
+
 
 
