@@ -44,7 +44,63 @@
 
 # 출력 예시
 #     3
+col, row = map(int, input().split())
+mapbackground = [[0]* row for _ in range(col)]
+x, y, dir = map(int, input().split())
+mapbackground[x][y] = 1 
+
+
+mapdot = []
+for i in range(0,row):
+    
+    mapdot.append(list(map(int, input().split())))
+
+dx = [-1,0,1,0]
+dy = [0,1,0,-1]
+
+#왼쪽으로 회전
+def turn_left():
+    global dir
+    dir -= 1
+    if dir == -1:
+        dir = 3
+
+count = 1 
+turn_time = 0
+while True:
+    turn_left()
+    nx = x + dx[dir]
+    ny = y + dy[dir]
+
+    if mapbackground[nx][ny] == 0 and mapdot[nx][ny] == 0:
+        mapbackground[nx][ny] = 1
+        x = nx
+        y = ny
+        count+=1
+        turn_time = 0
+        continue
+    else:
+        turn_time+=1
+    
+    if turn_time == 4:
+        nx = x - dx[dir]
+        ny = y - dy[dir]
+        if mapdot[nx][ny] == 0:
+            x = nx
+            y = ny
+        else:
+            break
+        turn_time = 0
+
+print(count)
+    
 
 
 
 
+# face = [1,2,3,4]
+# way = [(0,1), (1,0) (0,-1),(-1, 0)]
+
+
+# while True:
+#     if 
