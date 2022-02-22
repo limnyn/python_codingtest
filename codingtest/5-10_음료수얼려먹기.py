@@ -42,36 +42,32 @@
 # 출력 예시
     # 8
 
-from collections import deque
 
+# n, m 칸 수 입력받기
 n, m = map(int, input().split())
 
-dw = [0, 1, 0, -1]
-dh = [-1,0,1,0]
-
-
+# 2차원 배열 입력받기
 icetray = []
-for i in range(n):
-    icetray.append(list(map(int, input())))
+for _ in range(n):
+    icetray.append(list(map(int,input())))
 
-def dfs(x, y):  #특정 노드 방문 후 사방 탐색
-    if(x <= -1 or x >= n or y <= -1 or y >=m):
+
+def dps(x, y):
+    if (x <= -1 or x >= m or y <= -1 or y >= n):
         return False
-    
-    if icetray[x][y] == 0:
-        icetray[x][y] = 1
-        dfs(x-1, y)
-        dfs(x, y-1)
-        dfs(x+1, y)
-        dfs(x, y+1)
+    if(icetray[y][x] == 0):
+        icetray[y][x] = 1
+        dps(x+1, y)
+        dps(x, y+1)
+        dps(x-1, y)
+        dps(x, y-1)
         return True
     return False
 
 count = 0
-
 for i in range(n):
     for j in range(m):
-        if dfs(i, j) == True:
+        if dps(j,i) == True:
             count+=1
 
 print(count)
