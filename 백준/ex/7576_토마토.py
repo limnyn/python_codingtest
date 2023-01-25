@@ -60,12 +60,9 @@ maplist=[]
 onelist =[]
 for i in range(m):
     l = list(map(int, input().split()))
-
-
     for j in range(len(l)):
         if l[j]== 1:
             onelist.append((i,j))
-
     maplist.append(l)
 
 
@@ -73,7 +70,6 @@ dx = [-1, 0, 1 , 0]
 dy = [0, -1, 0, 1]
 
 from collections import deque
-
 def bfs(olst):
     queue = deque()
     for o in olst:
