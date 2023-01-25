@@ -15,6 +15,8 @@
 # 7 3
 # 예제 출력 1 
 # <3, 6, 2, 7, 5, 1, 4>
+
+
 n, k = map(int, input().split())
 circle = []
 for i in range(1, n+1):
@@ -23,7 +25,7 @@ count = len(circle)
 k-=1
 
 
-index = 0
+index = 0 
 
 result = []
 while(1):
@@ -34,8 +36,6 @@ while(1):
     del(circle[index])
     if len(circle) == 0:
         break
-# print(result)
-
     
 print("<", end="")
 if n == 1:
