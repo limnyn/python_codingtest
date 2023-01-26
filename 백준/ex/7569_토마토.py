@@ -66,7 +66,6 @@ from collections import deque
 def bfs(olst):
     queue = deque()
     for o in olst:
-        # print(o)
         queue.append((o[0], o[1], o[2]))
     maxNum = 0
     while queue:
@@ -80,7 +79,6 @@ def bfs(olst):
             if maplist[nz][ny][nx] == -1:
                 continue
             if maplist[nz][ny][nx] == 0:
-
                 maplist[nz][ny][nx] = maplist[z][y][x] + 1
                 if maplist[z][y][x] + 1 > maxNum:
                     maxNum = maplist[z][y][x] + 1
