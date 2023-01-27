@@ -29,23 +29,20 @@ input =sys.stdin.readline
 import heapq
 INF = 1e9
 
-
-
-
 def dijkstra():
     INF = 1e9
     v, e = map(int, input().split())
     start  = int(input())
     graph = [[] for i in range(v+1)]
     distance = [INF] * (v+1)
-        
-                
+           
     for _ in range(e):
         src, dst, cost = map(int, input().split())
         graph[src].append((dst, cost))
     q = []
     heapq.heappush(q, (0, start))
     distance[start] = 0
+
     while(q):
         dist, shortCut = heapq.heappop(q)
         if distance[shortCut] < dist:
@@ -57,7 +54,6 @@ def dijkstra():
                 distance[i[0]] = cost
                 heapq.heappush(q, (cost, i[0]))
     return distance
-
 
 result = dijkstra()[1:]
 for r in result:
