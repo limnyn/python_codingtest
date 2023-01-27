@@ -36,22 +36,19 @@
 # 7 4 10 6 0
 import sys
 input =sys.stdin.readline
-n = int(input())
-m = int(input())
 
-city = []
+def floydwashall():
+    n = int(input())
+    m = int(input())
+    city = []
 
-for _ in range(n+1):
-    city.append([1e9]*(n+1))
-    
-
-    
-for _ in range(m):
-    src, end, cost = map(int, input().split())
-    if city[src][end] > cost:
-        city[src][end] = cost
-
-def floydwashall(city,  n):
+    for _ in range(n+1):
+        city.append([1e9]*(n+1))
+        
+    for _ in range(m):
+        src, end, cost = map(int, input().split())
+        if city[src][end] > cost:
+            city[src][end] = cost
     for k in range(1, n+1):
         for i in range(1, n+1):
             for j in range(1, n + 1):
@@ -60,7 +57,6 @@ def floydwashall(city,  n):
                     continue
                 city[i][j] = min(city[i][j], city[i][k]+city[k][j])
                 
-
     for line in city[1:]:
         for i in range(1, n+1):
             if line[i] == 1e9:
@@ -70,7 +66,6 @@ def floydwashall(city,  n):
                     print(line[i])
                 else:
                     print(line[i],end=" ")
-        
 
 
-floydwashall(city=city,n=n)
+floydwashall()
