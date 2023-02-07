@@ -12,3 +12,4 @@ k = 2
 import collections
 result = list(zip(*collections.Counter(nums).most_common(k)))[0]
 print(result)
+ 
