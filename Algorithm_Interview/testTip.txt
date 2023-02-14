@@ -112,4 +112,9 @@ print
             a += b,
             -> [1, [2, 3]]        
     
-    
+18 이진 검색
+    any()와 all()함수
+        any()는 포함된 값 중 어느 하나가 참이라면 항상 참으로 출력한다. ( OR )
+            any([True, False, False]) => True
+        all()은 모든 값이 참이여야 true를 출력한다.
+            any([True, False, False]) => False
