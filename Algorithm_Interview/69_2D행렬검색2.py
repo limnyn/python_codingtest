@@ -9,24 +9,24 @@ mat =   [
     [18, 21, 23, 26, 30]
 ]
 
-def serachMatrix(mat, target):
-    if not mat:
-        return False
-    row, col = 0, len(mat[0])-1
-    while True:
-        # print("row : ", row,"col : ",col, "mat : ", mat[row][col])
-        if target < mat[row][col]:
-            col-=1
-        elif mat[row][col] < target:
-            row+=1
-        elif mat[row][col] == target:
-            return True        
+# def serachMatrix(mat, target):
+#     if not mat:
+#         return False
+#     row, col = 0, len(mat[0])-1
+#     while True:
+#         # print("row : ", row,"col : ",col, "mat : ", mat[row][col])
+#         if target < mat[row][col]:
+#             col-=1
+#         elif mat[row][col] < target:
+#             row+=1
+#         elif mat[row][col] == target:
+#             return True        
         
     
-print(serachMatrix(mat, 5))
+# print(serachMatrix(mat, 5))
 
 
 # Pythonic Way
 def searchMatrix(mat, target):
     return any(target in row for row in mat)
-print(serachMatrix(mat, 5))
+print(searchMatrix(mat, 5))
