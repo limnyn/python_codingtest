@@ -121,3 +121,14 @@ print
             any([True, False, False]) => True
         all()은 모든 값이 참이여야 true를 출력한다.
             any([True, False, False]) => False
+
+22 분할 정복
+    append(), extend() 차이점
+        a = [1,2,3]
+        b = [4,5]
+        a.append(b) ==> [1,2,3,[4,5]]
+        a.extend(b) ==> [1,2,3,4,5]
+
+    eval() 
+        문자열을 파싱하고 파이썬 표현식으로 ㅓ리해준다.
+        eval('4+5') => 9
