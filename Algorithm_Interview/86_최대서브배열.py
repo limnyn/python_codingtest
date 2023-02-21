@@ -9,18 +9,14 @@ def maxSubarray(nums):
 
 print(maxSubarray(nums))
 
-# 카데인 알고리즘
-def maxSubarray(nums):
+def maxSubArray(nums):
     import sys
     best_sum = -sys.maxsize
-    current_sum = 0
     for num in nums:
+        current_sum = 0
         current_sum = max(num, current_sum + num)
         best_sum = max(best_sum, current_sum)
-        
+
     return best_sum
 
-
-print(maxSubarray(nums))
-
-
+print(maxSubArray(nums))
