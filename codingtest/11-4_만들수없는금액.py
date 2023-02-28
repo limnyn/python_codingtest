@@ -22,9 +22,7 @@ coins = list(map(int, input().split()))
 coins.sort()
 target = 1
 for c in coins:
-    print(target, c)
     if target < c:
-        print("break")
         break
     target += c
 
