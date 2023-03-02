@@ -44,24 +44,55 @@
 # 5초에서 네트워크 장애가 발생했다. 1번 음식을 섭취해야 할 때 중단되었으므로, 장애 복구 후에 1번 음식부터 다시 먹기 시작하면 된다.
 
 
+
+# 런타임 에러
+# def solution(food_times, k):
+#     foods = []
+#     for f, i in enumerate(food_times):
+#         foods.append([i,f])
+#     import collections
+#     queue = collections.deque(foods)
+#     for i in range(k):
+#         food = queue.popleft()
+#         food[0] -= 1
+#         if food[0] == 0:
+#             continue
+#         queue.append(food)
+#     return queue.popleft()[1]+1
+
+#그리디 해결법
 def solution(food_times, k):
-    foods = []
-    for f, i in enumerate(food_times):
-        foods.append([i,f])
-    import collections
-    queue = collections.deque(foods)
-    for i in range(k):
-        print(queue)
-        food = queue.popleft()
-        food[0] -= 1
-        if food[0] == 0:
-            continue
-        queue.append(food)
-    return queue.popleft()[1]+1
+    import heapq
+    # 전체 음식을 먹는 시간보다 k가 크거나 같으면 -1
+    if sum(food_times) <= k:
+        return -1
+     
+    #시간이 작은 음식부터 빼야 하므로 우선순위 큐를 이용
+    q = []
+    for i in range(len(food_times)):
+        # (음식 시간, 음식 번호) 형태로 우선순위 큐에 삽입
+        heapq.heappush(q, (food_times[i], i+1))
+
+    sum_value = 0 # 먹기 위해 사용한 시간
+    previous = 0 # 직전에 다 먹은 음식 시간
+
+    length = len(food_times) # 남은 음식의 개수
+
+    # sum_value + (현재 음식의 시간 - 이전 음식의 시간) * 현재 음식의 개수와 k 비교
+    while sum_value + ((q[0][0]-previous)*length) <= k:
+        now = heapq.heappop(q)[0]
+        sum_value += (now - previous) * length
+        length -= 1 # 다먹은 음식 제외
+        previous = now # 이전 음식 시간 재설정
+
+    # 남은 음식 중에서 몇 번째 음식인지 확인하여 출력
+    result = sorted(q, key=lambda x : x[1]) #음식 번호 기준으로 정렬
+    return result[(k-sum_value) % length][1]
+
 
 print(solution(food_times=[3,1,2],k=5))
 
-        
+
         
     
   
