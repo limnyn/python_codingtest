@@ -9,7 +9,7 @@ def solution(s):
     if length == 1:
         return 1
     
-    for step in range(1,length):
+    for step in range(1,length//2 + 1):
         mols = []
         for i in range(0, length, step):
             mols.append(s[i:step+i])

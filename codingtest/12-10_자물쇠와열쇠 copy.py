@@ -1,5 +1,7 @@
 # https://school.programmers.co.kr/learn/courses/30/lessons/60059
 
+# 2020 카카오 신입 공채
+
 
 # 2차원 회전 문제
 key = [[0, 0, 0], [1, 0, 0], [0, 1, 1]]
@@ -22,8 +24,6 @@ def unlock(newLock, lenLock):
                 return False
     return True
     
-    
-
 
 def solution(key, lock):
     lenLock = len(lock)
