@@ -76,8 +76,8 @@
 # 종료조건
 #     1. 벽에 부딪힐때
 #     2. 자기 자신과 부딪힐때
-def solution():
 
+def solution():
     #변수 설정 파트
     N = int(input())
     board = [[0]*N for _ in range(N)]
@@ -96,16 +96,16 @@ def solution():
         sec = int(sec)
         actList.append((sec, act))
     
-
-    
-    
-    time = 0
+    # 초기변수 
     dx = [0,1,0,-1]
     dy = [1,0,-1,0]
     x, y = 0, 0
     board[0][0] = -1
+
+    time = 0
     d = 0
 
+    # 꼬리부터 머리까지 deque형태로 넣는다
     tail_to_head = collections.deque()
     while(1):
         if (actList):
@@ -130,14 +130,11 @@ def solution():
             board[x][y] = -1
 
 
-
+        # 방향전환시
         if act == 'D':
             d = (d + 5) % 4
-
         elif act == 'L':
             d = (d + 3) % 4
-
-            
         else:
             return "direction input ERROR"
 
