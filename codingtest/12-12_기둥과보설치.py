@@ -69,13 +69,10 @@ def build_permission(results):
 
 def solution(n, build_frame):
     n+=1
-    
     results = []
-    # print(board)
+    
     for build in build_frame:
         x, y, col, act = build[0], build[1], build[2], build[3]
-        
-        
         if act == 1: # 설치시
             results.append([x,y,col])
             if build_permission(results) == False:
@@ -86,12 +83,10 @@ def solution(n, build_frame):
             if build_permission(results) == False:
                 results.append([x,y,col])
 
-    results.sort()
-    
-                   
+    results.sort()                   
     return results       
         
         
-# print(build_frame[0])
+
   
 print(solution(n, build_frame))
