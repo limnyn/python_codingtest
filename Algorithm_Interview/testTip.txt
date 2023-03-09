@@ -132,3 +132,9 @@ print
     eval() 
         문자열을 파싱하고 파이썬 표현식으로 ㅓ리해준다.
         eval('4+5') => 9
+
+
+
+
+조합 또는 순열 사용시
+candidates = list(itertools.combinations(N, R))
