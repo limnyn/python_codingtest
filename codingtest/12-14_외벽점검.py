@@ -10,6 +10,7 @@ dist = [1,2,3,4]
 from itertools import permutations
 
 def solution(n, weak, dist):
+    # 길이를 두배로 늘려서 '원형'을 일자 형태로 변형
     length = len(weak)
     for i in range(length):
         weak.append(weak[i] + n)
