@@ -138,3 +138,5 @@ print
 
 조합 또는 순열 사용시
 candidates = list(itertools.combinations(N, R))
+
+힙은 자동 정렬을 해주지 않는다. pop을 했을 때 정렬도니 순서대로 나올 뿐이다.
