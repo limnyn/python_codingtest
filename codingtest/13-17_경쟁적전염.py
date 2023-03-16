@@ -1,5 +1,6 @@
 #https://www.acmicpc.net/problem/18405
 
+
 import collections, sys
 
 input = sys.stdin.readline
@@ -21,7 +22,7 @@ end_time, last_r, last_c = map(int, input().split())
 
 
 def bfs(grid, virus_spot):      # queue에 들어있는 값들에 대해 4방향 탐색을 하고 , 탐색한 지점들을 넣은 리스트를 반환한다.
-    queue = collections.deque(sorted(virus_spot))
+    queue = collections.deque(virus_spot)
     dx = [-1,0,1,0]
     dy = [0,-1,0,1]
     new_virus_spot = []
@@ -40,10 +41,58 @@ def bfs(grid, virus_spot):      # queue에 들어있는 값들에 대해 4방향
             else:
                 continue
     return new_virus_spot
+virus_spot.sort()
 
 for i in range(end_time):
     virus_spot = bfs(grid, virus_spot)
 print(grid[last_r-1][last_c-1])
+
+
+# # 개선 전 코드, 매번 sort할 필요없이 처음 입력값이 sort 되어있으면 queue에 자동으로 sort된 순서대로접근한다.
+# import collections, sys
+
+# input = sys.stdin.readline
+
+
+
+# n, k = map(int, input().split())
+
+# grid = []
+# virus_spot = []
+
+# for i in range(n):
+#     line = list(map(int, input().split()))
+#     for j in range(len(line)):
+#         if line[j] != 0:
+#             virus_spot.append((line[j],i,j))
+#     grid.append(line)
+# end_time, last_r, last_c = map(int, input().split())
+
+
+# def bfs(grid, virus_spot):      # queue에 들어있는 값들에 대해 4방향 탐색을 하고 , 탐색한 지점들을 넣은 리스트를 반환한다.
+#     queue = collections.deque(sorted(virus_spot)) #매 탐색시마다 정렬할 필요가 없다
+#     dx = [-1,0,1,0]
+#     dy = [0,-1,0,1]
+#     new_virus_spot = []
+    
+#     while(queue):
+#         q = queue.popleft()
+#         num, px, py = q[0], q[1], q[2]
+#         for i in range(4):
+#             x = px + dx[i]
+#             y = py + dy[i]
+#             if x < 0 or y < 0 or x >= n or y >= n or (grid[x][y] != 0 and num > grid[x][y]):
+#                 continue
+#             elif grid[x][y] == 0:
+#                 grid[x][y] = num
+#                 new_virus_spot.append((num, x,y))
+#             else:
+#                 continue
+#     return new_virus_spot
+
+# for i in range(end_time):
+#     virus_spot = bfs(grid, virus_spot)
+# print(grid[last_r-1][last_c-1])
 
 
 #틀린 풀이
