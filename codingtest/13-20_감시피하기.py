@@ -1,6 +1,6 @@
 # https://www.acmicpc.net/problem/18428
 
-#N이 6일때 최대이다. 장애물은 3개를 설치하므로 36*35*34 = 42840, 충분히 계산 가능한 수치이다.
+#N이 6일때 최대이다. 장애물은 3개를 설치하므로 36*35*34 = 42840, 완전탐색으로 계산 가능한 수치이다.
 
 import sys, copy
 from itertools import combinations
@@ -10,6 +10,7 @@ grid = []
 teachers = []
 students = []
 unblocked = []
+
 for r in range(n):
     line = list(input().split())
     for c in range(len(line)):
@@ -22,7 +23,7 @@ for r in range(n):
     grid.append(line)
 
 
-def dfs(grid,teachers,students):
+def dfs(grid,teachers):
     dx = [1, 0, -1, 0]
     dy = [0, -1, 0, 1]
     for teacher in teachers:
@@ -38,24 +39,21 @@ def dfs(grid,teachers,students):
                 elif grid[x][y] == 'X':
                     continue
                 elif grid[x][y] == 'S':
-                    # stu_count -= 1
                     return False
-                    grid[x][y] == 'X'
     return True
                         
                     
-def solutions(grid, teachers, students):
-        
+def solutions(grid, teachers):
     blocks = list(combinations(unblocked,3))
     for block in blocks:
         newblocks = copy.deepcopy(grid)
         for r, c in block:
             newblocks[r][c] = 'O'
-        if dfs(newblocks, teachers, students):
+        if dfs(newblocks, teachers):
             return "YES"
     return "NO"
 
-print(solutions(grid, teachers, students))
+print(solutions(grid, teachers))
         
 
     
