@@ -1,11 +1,11 @@
 # https://school.programmers.co.kr/learn/courses/30/lessons/60063
 
-board = [[0, 0, 0, 1, 1],[0, 0, 0, 1, 0],[0, 1, 0, 1, 1],[1, 1, 0, 0, 1],[0, 0, 0, 0, 0]]	
+board = [[0, 0, 0, 1, 1],[0, 0, 0, 1, 0],[0, 1, 0, 1, 1],[1, 1, 0, 0, 1],[0, 0, 0, 0, 0]]
 # result = 7
 
 # dfs로 찾는데 회전경우(좌4우4)와 그냥 이동조건을 추가, 가장 시간이 적게 걸린것 출력
 
-
+from collections import deque
 
 def get_next_pos(pos, board):
     next_pos = [] # 반환 결과(이동 가능한 위치들)
@@ -17,7 +17,7 @@ def get_next_pos(pos, board):
     for i in range(4):
         pos1_next_x, pos1_next_y, pos2_next_x, pos2_next_y = pos1_x + dx[i] , pos1_y + dy[i], pos2_x + dx[i], pos2_y + dy[i]
         # 이동하고자 하는 두 칸이 모두 비어 있다면
-        if board[pos1_next_x][pos1_next_y] == 0 and board[pos2_next_x][pos1_next_y] == 0:
+        if board[pos1_next_x][pos1_next_y] == 0 and board[pos2_next_x][pos2_next_y] == 0:
             next_pos.append({(pos1_next_x, pos1_next_y), (pos2_next_x,pos2_next_y)})
             
     # 현재 로봇이 가로로 놓여 있는 경우
@@ -38,7 +38,6 @@ def get_next_pos(pos, board):
             
             
 def solution(board):
-    from collections import deque
     # 맵의 외각에 벽을 두는 형태로 맵 변형
     n = len(board)
     new_board = [[1] * (n + 2) for _ in range(n + 2)]
