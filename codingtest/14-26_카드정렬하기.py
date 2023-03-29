@@ -23,20 +23,3 @@ def solution(deck):
 
 print(solution(deck))
 
-
-
-# import sys,heapq
-# input=sys.stdin.readline
-
-# mte=[]
-# for _ in range(int(input())):
-#     mte.append(int(input()))
-
-# heapq.heapify(mte)
-# result=0
-# while len(mte)>1:
-#     a=heapq.heappop(mte)
-#     b=heapq.heappop(mte)
-#     heapq.heappush(mte,a+b)
-#     result+=(a+b)
-# print(result)

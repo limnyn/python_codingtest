@@ -60,7 +60,7 @@ def dfs(i, now):
         # 각 연산자에 대해 재귀적으로 수행
         if add > 0:
             add -= 1
-            dfs(i + 1, now + data[i])    
+            dfs(i + 1, now + data[i])   
             add += 1
         if sub >  0:
             sub -= 1
