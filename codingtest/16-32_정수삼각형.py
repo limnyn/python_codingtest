@@ -15,3 +15,5 @@ for i in range(1,n):
             right = stair[i-1][j]
         stair[i][j] = stair[i][j]+max(left, right)
 print(max(stair[n-1]))
+
+
