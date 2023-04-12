@@ -1,4 +1,4 @@
-
+# p.386
 
 # 입력 조건
 #     첫째 줄에 학생들의 수 N(2<=N<=500)과 두 학생의 성적을 비교한 횟수 M(2<=M<=10000)이 주어집니다.
@@ -33,8 +33,6 @@ for _ in range(m):
     start, end = map(int, input().split())
     
     graph[start-1][end-1] = 1
-import pprint
-pprint.pprint(graph)
 
 for k in range(n):
     for a in range(n):
@@ -45,7 +43,6 @@ for k in range(n):
             if graph[a][k] and graph[k][b]:
                 graph[a][b] = 1
 
-pprint.pprint(graph)
 sums = [0]*n
 for i in range(n):
     for j in range(n):
