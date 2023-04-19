@@ -82,5 +82,3 @@ print(max_node, max_distance,len(result))
 # # print(graph)
 
 
-
-
