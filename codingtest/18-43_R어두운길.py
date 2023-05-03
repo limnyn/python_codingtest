@@ -51,7 +51,7 @@ def find_parent(parent, x):
         parent[x] = find_parent(parent, parent[x])
     return parent[x]
 
-def union(parent, a, b):
+def union_parent(parent, a, b):
     a = find_parent(parent, a)
     b = find_parent(parent, b)
     if a < b:
@@ -59,14 +59,15 @@ def union(parent, a, b):
     else:
         parent[a] = b
 
-def kruskal(edges):
-    global result
+def kruskal(edges, result):
+    
     edges.sort()
     parent = [i for i in range(n)]
     for edge in edges:
         cost, a, b = edge
         if find_parent(parent, a) != find_parent(parent, b):
-            union(parent, a, b)
+            union_parent(parent, a, b)
             result -= cost
-kruskal(edges)
-print(result)
+    return result
+print(kruskal(edges, result))
+
