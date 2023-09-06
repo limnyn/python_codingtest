@@ -5,7 +5,7 @@
 # 중단된 과제들 중 가장 최근에 멈춘 과제부터 시작
 
 # 과제 계획을 담은 이차원 문자열 배열
-plans = [["korean", "11:40", "30"], ["english", "12:10", "20"], ["math", "12:30", "40"]]
+plans = [["aaa", "12:00", "20"], ["bbb", "12:10", "30"], ["ccc", "12:40", "10"]]
 # 과제를 끝낸 순서대로 출력해야 한다.
 
 # 시간을 전부 숫자로 변환한다면?
@@ -16,6 +16,7 @@ from collections import deque
 def solution(plans):
     answer = []
     schedule = []
+
     # plans는 name, start, playtime으로 구성되어 있다.
     for name, start, playtime in plans:
         time = 60 * (int(start[:2])) + int(start[3:])
@@ -34,9 +35,6 @@ def solution(plans):
         # 과제가 끝났을 때, 새로시작되는 과제가 있다면 새로 시작해야하는 과제부터 진행
         if temp == next_start:
             answer.append(now_name)
-            # now_start = next_start
-            # now_time = next_time
-            # now_name = next_name
 
         # 과제가 끝나고 시간이 남으면 멈춰둔 과제를 이어서 진행한다.
         elif temp < next_start:
@@ -66,14 +64,32 @@ def solution(plans):
         now_start = next_start
         now_time = next_time
         now_name = next_name
-        # print(dq)
-        # print(wait)
 
     answer.append(now_name)
     while wait:
         wait_time, wait_name = wait.pop()
         answer.append(wait_name)
     return answer
+
+
+# def solution(plans):
+#     plans = sorted(
+#         map(lambda x: [x[0], int(x[1][:2]) * 60 + int(x[1][3:]), int(x[2])], plans),
+#         key=lambda x: -x[1],
+#     )
+#     # 시작 시간 기준 내림차순
+
+#     lst = []  # 과제들이 각각 끝나는 시간을 담을 리스트
+
+#     while plans:
+#         x = plans.pop()  # 가장 빠른 시작시간의 과제
+#         for i, v in enumerate(lst):
+#             if v[0] > x[1]:  # 만약 먼저 시작했던 과제의 끝나는 시간이, 지금 과제의 시작시간보다 크다면
+#                 lst[i][0] += x[2]  # 먼저 시작한 과제들은 지금 과제가 끝날 때 까지 걸리는 시간만큼 더 늦게 끝나니까
+#         lst.append([x[1] + x[2], x[0]])  # 이후 리스트에 현재 과제의 종료시간 추가
+#     lst.sort()  # 오름차순 정렬
+
+#     return list(map(lambda x: x[1], lst))
 
 
 print(solution(plans))
