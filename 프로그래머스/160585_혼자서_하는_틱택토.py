@@ -29,8 +29,6 @@
         3. 승부 후
             
 """
-grid = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-
 
 def check_is_win(board, mark):
     if (
