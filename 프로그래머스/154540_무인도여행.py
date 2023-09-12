@@ -52,6 +52,9 @@ def solution(maps):
 
 
 print(solution(maps))
+
+
+# 아래는 비효율적인 DFS 정답
 # def counting_cells(r, c, maps_mark):
 #     if (r < 0 or r >= len(maps_mark)) or (c < 0 or c >= len(maps_mark[0])):
 #         return 0
