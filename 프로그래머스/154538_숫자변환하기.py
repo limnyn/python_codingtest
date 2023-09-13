@@ -6,7 +6,6 @@ from collections import deque
 
 def solution(x, y, n):
     dq = deque([])
-
     dq.append((y, 0))
 
     while dq:
@@ -20,10 +19,8 @@ def solution(x, y, n):
         count += 1
         if y % 3 == 0:
             dq.append((y // 3, count))
-
         if y % 2 == 0:
             dq.append((y // 2, count))
-
         dq.append((y - n, count))
 
     return -1
