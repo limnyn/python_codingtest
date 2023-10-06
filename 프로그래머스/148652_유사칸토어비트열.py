@@ -1,53 +1,39 @@
 # https://school.programmers.co.kr/learn/courses/30/lessons/148652
-# x1 = 11011
-# x2 = 11011 11011 00000 11011 11011
-# y1 = 00000
-# y2 = 00000 00000 00000 00000 00000 y*5^(n-2)
-# n1 = 11011
-# n2 = x2
-# n3 = (x1)^2 + y1*5^(n-2)+(x1 * 2^
-# n4 = (y1*5)
 
 
-# 40404
-# 11011 다음
-# ->11011 11011 00000 11011 11011
-# 00000 다음
-# ->00000*5
-# y * 5 ^ n - 1
-# 11011
-# 1               //0
-# 1~ = 11011      //1
-# 1~ 1~ 0~ 1~ 1~    //2
-# 1~ 1~ 0~ 1~ 1~ * 2 + 0~ *5 + 1~ 1~ 0~ 1~ 1~ * 2
-# x~
-# (n-1)*2 (n-1)*5 (n-1)*2 //3
-
-
-def count_1_to_k(n, k):
+def count_n_to_k(n, k):
     if n == 1:
         return k if k < 3 else k - 1
 
-    num0 = 5 ** (n - 1)
-    num1 = 4 ** (n - 1)
-    loc = k // num0
+    """
+    1. 5등분을 해서 K가 전체 중 어디에 속하는지 찾는다
+    2. k가 속하기 이전 위치까지의 1의 갯수 + (n-1일 때 해당 위치에서의 k의 위치까지의 1의 개수) 를 return 한다.
+    """
 
-    if k % num0 == 0:
+    part = 5 ** (n - 1)  # 전체를 5등분한 part 하나의 길이
+    num1 = 4 ** (n - 1)  # 한 part의 1의 갯수 (part3 제외)
+
+    loc = k // part
+    if k % part == 0:
         loc -= 1
 
     if loc < 2:
-        return num1 * loc + count_1_to_k(n - 1, k - loc * num0)
+        return num1 * loc + count_n_to_k(n - 1, k - (loc * part))
     elif loc == 2:
         return num1 * loc
-    else:
-        return num1 * (loc - 1) + count_1_to_k(n - 1, k - loc * num0)
+    elif loc > 2:
+        return num1 * (loc - 1) + count_n_to_k(n - 1, k - (loc * part))
 
 
 def solution(n, l, r):
-    return count_1_to_k(n, r) - count_1_to_k(n, l - 1)
+    return count_n_to_k(n, r) - count_n_to_k(n, l - 1)
+    # r~l까지 1의 갯수 ==r까지 갯수 - l-1까지의 갯수
 
 
 print(solution(2, 4, 17))
+# 1 0
+
+# 11011 1
 
 # 11011 11011 00000 11011 11011 2
 
@@ -91,7 +77,25 @@ print(solution(2, 4, 17))
 # 11011 11011 00000 11011 11011
 # 11011 11011 00000 11011 11011
 
-# 2*[n-1]+ 5^(n-1) + 2*x[n-1]
 
-# x = 11011
-# y = 00000
+# def count_1_to_k(n, k):
+#     if n == 1:
+#         return k if k < 3 else k - 1
+
+#     num0 = 5 ** (n - 1)
+#     num1 = 4 ** (n - 1)
+#     loc = k // num0
+
+#     if k % num0 == 0:
+#         loc -= 1
+
+#     if loc < 2:
+#         return num1 * loc + count_1_to_k(n - 1, k - loc * num0)
+#     elif loc == 2:
+#         return num1 * loc
+#     else:
+#         return num1 * (loc - 1) + count_1_to_k(n - 1, k - loc * num0)
+
+
+# def solution(n, l, r):
+#     return count_1_to_k(n, r) - count_1_to_k(n, l - 1)
