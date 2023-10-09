@@ -17,7 +17,7 @@ s_3 = 1+2+1 = 4
 def solution(data, col, row_begin, row_end):
     # 1. 정렬
     # data = sorted(sorted(data, key=(lambda x: -1 * x[0])), key=(lambda x: x[col - 1]))
-    data = sorted(data, key=lambda x: (x[col - 1], -x[0]))
+    data.sort(key=lambda x: (x[col - 1], -x[0]))
 
     # 2. s_i 계산
     s_i = []
