@@ -6,7 +6,7 @@ def solution(k, tangerine):
 
     # k에서 하나씩 제외
     answer = 0
-    for num, count in counter:
+    for _, count in counter:
         k -= count
         answer += 1
         if k <= 0:
