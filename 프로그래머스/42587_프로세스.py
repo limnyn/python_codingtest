@@ -1,14 +1,9 @@
 # https://school.programmers.co.kr/learn/courses/30/lessons/42587
-
-
 from collections import deque
 
 
 def solution(priorities, location):
-    # lst =[]
-    # for i, p in enumerate(priorities):
-    #     lst.append([p,i])
-    dq = deque([[i, p] for i, p in enumerate(priorities)])
+    dq = deque([[p, i] for i, p in enumerate(priorities)])
     i = 0
     result = []
     process = dq.popleft()
@@ -21,7 +16,8 @@ def solution(priorities, location):
         process = dq.popleft()
 
     result.append(process[1])
-
     loc = result.index(location)
-
     return loc + 1
+
+
+print(solution([1, 1, 9, 1, 1, 1], 0))
