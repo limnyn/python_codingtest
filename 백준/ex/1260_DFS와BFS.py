@@ -11,7 +11,6 @@ for _ in range(m):
     graph[e - 1].append(s - 1)
 
 visited = [0] * n
-result = [start + 1]
 visited[start] = 1
 
 
@@ -38,7 +37,6 @@ def bfs(start):
             if visited[edge] == 0:
                 visited[edge] = 1
                 print(edge + 1, end=" ")
-                result.append(edge + 1)
                 dq.append(graph[edge])
 
 
