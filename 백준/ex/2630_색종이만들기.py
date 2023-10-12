@@ -18,7 +18,7 @@ def is_square(r, c, n):
         else:
             white_square += 1
         return 0
-    square = [r[c : c + n] for r in grid[r : r + n]]
+    square = [r[c : c + n] for r in grid[r : r + n]]  # r,c에서 n*n사각형 그리드 자르기
     result = sum([sum(x) for x in square])
     if result == n**2:
         blue_square += 1
