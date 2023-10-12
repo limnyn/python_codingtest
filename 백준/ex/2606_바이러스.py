@@ -23,4 +23,7 @@ while dq:
             visited[edge] = 1
             dq.append(edge)
 
-print(sum(visited) - 1)
+if m == 0:
+    print(0)
+else:
+    print(sum(visited) - 1)
