@@ -24,8 +24,9 @@ for t_c in range(10):
     for row in range(100):
         line = input()
         grid_r.append([c for c in line])
-        for i, c in enumerate(line):
-            grid_c[i].append(c)
+        # for i, c in enumerate(line):
+        # grid_c[i].append(c)
+        grid_c = list(map(list, zip(*grid_r)))
 
     # 가로 세로 그리드 중 가장 긴 펠린드롬을 찾는다
     result = max(longest_palindrome(grid) for grid in [grid_r, grid_c])
