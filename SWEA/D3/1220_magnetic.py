@@ -1,4 +1,4 @@
-# https://swexpertacademy.com/main/code/problem/problemDetail.do?problemLevel=3&contestProbId=AV15Khn6AN0CFAYD&categoryId=AV15Khn6AN0CFAYD&categoryType=CODE&problemTitle=&orderBy=INQUERY_COUNT&selectCodeLang=ALL&select-1=3&pageSize=10&pageIndex=1
+# https://swexpertacademy.com/main/talk/solvingClub/problemPassedUser.do?contestProbId=AV14hwZqABsCFAYD&solveclubId=AV6kld8aisgDFASb&problemBoxTitle=%5BD2%7ED3+%EB%AC%B8%EC%A0%9C%ED%92%80%EC%9D%B4%5D+%EA%B8%B0%EC%B4%88+%EB%8B%A4%EC%A7%80%EA%B8%B0+Part4&problemBoxCnt=14&probBoxId=AV-4MojKLNADFATz
 
 
 # 각 열의 첫 빨강에 대해 그 아래에 파랑이 몇개 있는지 반환하면 되는 간단한 문제
@@ -23,6 +23,7 @@ for t_c in range(10):
 
     print("#" + str(t_c + 1) + " " + str(count))
 
+# 7
 # 1 0 2 0 1 0 1
 # 0 2 0 0 0 0 0
 # 0 0 1 0 0 1 0
