@@ -14,6 +14,10 @@ for t in range(1, 11):
         elif o == "D":
             x, y = int(opers_str[i + 1]), int(opers_str[i + 2])
             opers.append([o, x, y])
+        elif o == "A":
+            x, y = -1, int(opers_str[i + 1])
+            s = list(map(int, opers_str[i + 2 : i + 2 + y]))
+            opers.append([o, x, y, s])
 
     for oper in opers:
         o, x, y = oper[0], oper[1], oper[2]
@@ -21,6 +25,8 @@ for t in range(1, 11):
             nums[x:x] = oper[3:]
         elif o == "D":
             nums[x : x + y] = []
+        elif o == "A":
+            nums += oper[3:]
 
     print(f"#{t}", end=" ")
     for num in nums[:10]:
