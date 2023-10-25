@@ -1,12 +1,8 @@
 # https://school.programmers.co.kr/learn/courses/30/lessons/12952
 def solution(n):
-    loc = []
-
-    def check(loc, new):
+    def is_promissing(loc, new):
         for i in range(len(loc)):
-            if loc[i] == new:
-                return False
-            if abs(loc[i] - new) == len(loc) - i:
+            if loc[i] == new or abs(loc[i] - new) == len(loc) - i:
                 return False
         return True
 
@@ -15,12 +11,8 @@ def solution(n):
             return 1
         cnt = 0
         for i in range(n):
-            if check(loc, i):
+            if is_promissing(loc, i):
                 cnt += dfs(level + 1, loc + [i])
-
         return cnt
 
-    return dfs(0, loc)
-
-
-print(solution(int(input())))
+    return dfs(0, [])
