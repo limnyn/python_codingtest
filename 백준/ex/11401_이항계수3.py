@@ -1,7 +1,7 @@
-# https://www.acmicpc.net/problem/11051
-# 유사한 문제 이항계수3, swea 5607
+# https://www.acmicpc.net/problem/11401
+# 유사한 문제 boj 이항계수2, swea 5607
 n, k = map(int, input().split())
-P = 10007
+P = 1000000007
 def mod_factorial(n, p):
     result = 1
     for i in range(1, n+1):
