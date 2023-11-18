@@ -9,7 +9,7 @@ for t_c in range(1, int(input())+1):
     result = "Possible"
     for i in range(n):
         boong = (customers[i]//m)*k - (i+1)
-        if boong <= 0:
+        if boong < 0:
             result = "Impossible"
             break
 
