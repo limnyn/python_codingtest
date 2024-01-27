@@ -17,7 +17,6 @@ line.sort()
 consonant = [x for x in line if x not in ['a','e','i','o','u']] # 자음
 vowel = [x for x in line if x in ['a', 'e', 'i', 'o', 'u']] # 모음
 
-
 def is_able(word):
     v, c =  0, 0
     for w in word:
@@ -34,7 +33,7 @@ def backtracking(arr):
     if len(arr) == l:
         if is_able(arr):
             print("".join(arr))
-            return
+            # return
 
     for i in range(len(arr), c):
         if arr[-1] < line[i]:

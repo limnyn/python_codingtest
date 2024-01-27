@@ -17,11 +17,9 @@ nums = list(permutations(['1','2','3','4','5','6','7','8','9'], 3))
 result = []
 
 def baseball(num):
-
     for quest, strike, ball in line:
         strike_cnt, ball_cnt = 0, 0
         question = [x for x in str(quest)]
-        
         for i in range(3):
             if question[i] == num[i]:
                 strike_cnt += 1
