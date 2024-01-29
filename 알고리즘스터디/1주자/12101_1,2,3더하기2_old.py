@@ -10,7 +10,7 @@ tc에 다 잘 나오는데 백준 넣으면 어디서 틀렸는지 모르겠음
 
 n, k = map(int, input().split())
 
-dp = [[] for _ in range(12)]
+dp = [[] for _ in range(n+2)]
 
 dp[2] = ["1+1"]
 dp[3] = ["1+1+1","1+2", "2+1"]
