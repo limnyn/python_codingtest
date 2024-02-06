@@ -47,7 +47,10 @@ for _ in range(testcase):
     result = 0
     for i in range(n):
         for j in range(m):
-            result+=bfs(i,j)
+            r=bfs(i,j)
+            if r==1:
+                print(i, j, r)
+            result+=r
 
     answer.append(result)
 

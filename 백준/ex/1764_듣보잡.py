@@ -1,6 +1,7 @@
 # https://www.acmicpc.net/problem/1764
 # import sys
 
+
 # input = sys.stdin.readline
 n, m = map(int, input().split())
 unh = []
