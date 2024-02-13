@@ -5,9 +5,6 @@ from collections import Counter
 for test_case in range(1, T + 1):
     t_c = int(input())
     cnt = Counter(list(map(int, input().split()))).most_common()
-    print(cnt)
-    cnt.sort(key=lambda x: (-x[1]))
-    print(cnt)
-    break
+    cnt.sort(key=lambda x: -x[1])
     result = cnt[0][0]
-    print("#" + str((t_c)) + " " + str(result))
+    print(f"#{t_c} {result}")
