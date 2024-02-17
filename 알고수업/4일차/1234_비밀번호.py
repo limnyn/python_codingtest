@@ -19,3 +19,5 @@ for t_c in range(1, 11):
     password_right = ''.join(map(str, password_right))
     print(f'#{t_c} {password_right}')
 
+    
+
