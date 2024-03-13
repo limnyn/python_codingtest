@@ -1,7 +1,4 @@
-# https://www.acmicpc.net/problem/16472
-"""
-투포인터 문제
-"""
+
 import sys
 input = sys.stdin.readline
 # https://www.acmicpc.net/problem/16472
