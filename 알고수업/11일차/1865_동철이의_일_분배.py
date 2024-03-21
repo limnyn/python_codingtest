@@ -50,7 +50,7 @@ def solution():
     global n, grid, visited, result
     result = -1
     n = int(input())
-    # grid = [list(map(int, input().split())) for _ in range(n)]
+    
     grid = []
     for r in range(n):
         line = list(map(int, input().split()))
@@ -58,9 +58,9 @@ def solution():
         for c in range(n):
             l.append((0.01)*line[c])
         grid.append(l)
-    # grid = [(0.01)*x for x in grid[r] for r in range(n)]
+    
 
-    # grid = [[round((0.01)*grid[r][c], 3) for c in range(n)] for r in range(n)]
+    
     visited = [False] * n
 
     backtracking([], 0)    
@@ -69,59 +69,3 @@ def solution():
 
 for t_c in range(1, int(input()) + 1):
     print(f"#{t_c} {solution()}")
-
-
-'''
-1
-4
-98 13 75 48
-94 0 6 79
-75 3 43 34
-91 73 49 48
-'''
-# n = 0
-# grid = []
-# result = -1
-# visited = []
-
-
-# def calc(nums):
-#     answer = 1
-#     depth = len(nums)
-#     for num in nums:
-#         answer *= (0.01)*num
-#     return answer
-
-
-# def backtracking(nums):
-#     global visited, result
-#     depth = len(nums)
-#     if depth == n:
-#         result = max(calc(nums), result)
-#         return
-    
-#     if calc(nums) <= result:
-#         return
-    
-#     for i in range(n):
-#         if visited[i] == False:
-#             visited[i] = True
-#             backtracking(nums + [grid[depth][i]])
-#             visited[i] = False
-
-
-
-    
-# def solution():
-#     global n, grid, visited, result
-#     result = -1
-#     n = int(input())
-#     grid = [list(map(int, input().split())) for _ in range(n)]
-#     visited = [False] * n
-
-#     backtracking([])    
-#     return "{0:.6f}".format(result*100)
-
-
-# for t_c in range(1, int(input()) + 1):
-#     print(f"#{t_c} {solution()}")
