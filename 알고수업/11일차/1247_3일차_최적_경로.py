@@ -56,7 +56,6 @@ def solution():
     n = int(input())
     visited = [False] * (n+1)
     line = list(map(int, input().split()))
-
     corp = line[0:2]
     house = line[2:4]
     customers = [(line[0], line[1])]
@@ -65,6 +64,7 @@ def solution():
 
     visited[0] = True
     backtracking([0],0)
+
 
 for t_c in range(1, int(input())+1):
 
