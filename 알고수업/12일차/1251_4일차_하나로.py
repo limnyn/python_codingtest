@@ -40,6 +40,66 @@ def solution():
         start = comb[0]
         end = comb[1]
         dist = (start[0] - end[0]) ** 2 + (start[1] - end[1]) ** 2
+
+        grid[start[2]][end[2]] = dist
+
+    # 노드 별 거리를 힙으로 저장
+    import heapq
+    heaps = []
+    for i in range(n):
+        for j in range(n):
+            distance = grid[i][j]
+            if distance != -1:
+                heapq.heappush(heaps, (distance, j))
+    
+
+
+    # 힙에 대해서 mst 수행
+
+    # start = 0 # 0번 노드에서 수행
+    visited = [False] * n
+
+    result = 0
+    mst_node_count = 1
+    while mst_node_count < n:
+
+        start_node = heapq.heappop(heaps)
+        
+        end = start_node[1]
+
+        if visited[end] == True:
+            continue
+        
+        visited[end] = True
+        result += start_node[0]
+        mst_node_count += 1
+
+
+
+    return round(result * E)
+    # return result * E
+
+for t_c in range(1, int(input())+ 1):
+    print(f"#{t_c} {solution()}")
+
+'''
+def solution():
+    # 입력
+    n = int(input())
+    grid = [[-1]*(n) for _ in range(n)]
+    x_list = list(map(int, input().split()))
+    y_list = list(map(int, input().split()))
+    E = float(input())
+    spots = [(x_list[i],y_list[i], i) for i in range(n)]
+
+    from itertools import combinations
+    combs = combinations(spots, 2)
+
+    # 거리 그리드 생성
+    for comb in combs:
+        start = comb[0]
+        end = comb[1]
+        dist = (start[0] - end[0]) ** 2 + (start[1] - end[1]) ** 2
         grid[start[2]][end[2]] = (dist, end[2])
         grid[end[2]][start[2]] = (dist, start[2])
 
@@ -94,3 +154,5 @@ def solution():
 
 for t_c in range(1, int(input())+ 1):
     print(f"#{t_c} {solution()}")
+
+'''
