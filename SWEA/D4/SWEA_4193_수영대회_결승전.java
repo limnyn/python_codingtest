@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.StringTokenizer;
 import java.util.ArrayDeque;
 
-public class SWEA_4193 {
+public class SWEA_4193_수영대회_결승전 {
     static int[] dr = {-1, 0, 1, 0};
     static int[] dc = {0, 1, 0, -1};
 
