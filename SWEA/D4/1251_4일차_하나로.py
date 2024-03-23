@@ -16,13 +16,19 @@
     최소 신장 트리
         "모든" 노드가 연결 되기 때문에
         
-        1. 특정 노드를 선택해서 집합에 넣고
-        2. 해당 집합의 간선 중 아직 방문안한 가장 가까운 노드 선택
-        3. 1 - 2 반복
+        1. 그룹에 노드 하나를 넣는다
+        2. 넣는 노드의 간선 중 방문안한 간선들을 최소힙에 넣는다
+
+        3. 최소힙에서 하나를 꺼내서 방문을 했는지 확인한다.
+        4. 만약 방문했다면 1 - 2 - 3을 확인한다.
+
+        5. 노드의 개수 만큼 방문했다면 return 하고 결과를 출력한다
         
-        을 통해서 구할 수 있을 것 같다
+        위 과정을 통해서 구할 수 있을 것 같다
 
 '''
+import heapq
+
 def solution():
     # 입력
     n = int(input())
@@ -30,67 +36,42 @@ def solution():
     x_list = list(map(int, input().split()))
     y_list = list(map(int, input().split()))
     E = float(input())
-    spots = [(x_list[i],y_list[i], i) for i in range(n)]
+    spots = [(x_list[i],y_list[i]) for i in range(len(x_list))]
 
-    from itertools import combinations
-    combs = combinations(spots, 2)
-
-    # 거리 그리드 생성
-    for comb in combs:
-        start = comb[0]
-        end = comb[1]
-        dist = (start[0] - end[0]) ** 2 + (start[1] - end[1]) ** 2
-        grid[start[2]][end[2]] = (dist, end[2])
-        grid[end[2]][start[2]] = (dist, start[2])
-
-    # 노드 별 거리를 힙으로 저장
-    import heapq
-    heaps = []
-    for gr in grid:
-        hp = []
-        for distance in gr:
-            if distance != -1:
-                heapq.heappush(hp, distance)
-        heaps.append(hp)
-    # print(heaps)
 
 
     # 힙에 대해서 mst 수행
 
-    start = 0 # 0번 노드에서 수행
     visited = [False] * n
-    visited[start] = True
-    union = [start]
+    
+    start = 0 # 0번 노드에서 수행
+    group_heap = []
+    heapq.heappush(group_heap, (0, 0))
+    group_cnt = 0
     result = 0
-    for _ in range(n):
 
-        min_dist = (float('inf'),-1)
-        min_dist_idx = -1
-        for s in union:
-            while heaps[s]:
-                
-                node = heaps[s][0]
-                if visited[node[1]] == False:
-                    if min_dist[0] > node[0]:
-                        if min_dist_idx != -1:
-                            heapq.heappush(heaps[min_dist_idx], min_dist)
-                        min_dist = heapq.heappop(heaps[s])
-                        min_dist_idx = s
-                    # else:
-                        # node.heapq.heappush(s, node)
-                    break
-                else:
-                    heapq.heappop(heaps[s])
+    while group_heap:
+        dist, end = heapq.heappop(group_heap)
+        
+        # 방문하지 않았다면
+        if visited[end] == False:
+            group_cnt += 1
+            result += dist
+            # 방문처리하고
+            visited[end] = True
 
-        if min_dist_idx == -1:
+            # 새로 그룹에 추가되는 노드에 연결된 간선 중 방문하지 않은 간선들을 힙에 넣는다
+            for i in range(n):
+                if visited[i] == False:
+                    distance = (spots[i][0] - spots[end][0]) ** 2 + (spots[i][1] - spots[end][1]) ** 2
+                    heapq.heappush(group_heap, (distance, i))
+                    
+        if group_cnt == n:
             break
-        # print(min_dist)
-        visited[min_dist[1]] = True
-        union.append(min_dist[1])
-        result += min_dist[0]
-
     return round(result * E)
-    # return result * E
+
+
 
 for t_c in range(1, int(input())+ 1):
     print(f"#{t_c} {solution()}")
+

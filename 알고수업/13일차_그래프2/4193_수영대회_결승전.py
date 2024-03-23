@@ -62,16 +62,5 @@ for t_c in range(1, int(input()) + 1):
     print(f"#{t_c} {solution()}")
 # time % 3 == 0 이라면 deque에 [nr, nc, time + 3]을 넣는다
 
-# 각 칸에 대해서 visited[nr][nc] > visited[r][c] + time이라면
-# visited[nr][nc] = visited[r][c] + time을 하면
                 
-                    
-
-
-# 4
-# 1 1 1 1
-# 1 1 1 1
-# 1 1 1 1
-# 1 1 1 1
-# 0 0
-# 1 1
+            
