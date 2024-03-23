@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "SWEA_4193_수영대회_결승전",
+            "request": "launch",
+            "mainClass": "SWEA_4193_수영대회_결승전",
+            "projectName": "python_codingtest_b4f263e1"
+        },
+        {
             "name": "Python: 현재 파일",
             "type": "python",
             "request": "launch",

@@ -28,3 +28,5 @@ for i in range(1, n):
 
 print(min(dp[n-1]))
 
+for i in dp:
+    print(i)
