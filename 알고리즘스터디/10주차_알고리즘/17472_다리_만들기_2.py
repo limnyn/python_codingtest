@@ -34,10 +34,13 @@
 
 
 3. MST - > 1번 섬에서 부터 집합에 넣고 출발한다.
-    그룹에 속한 node들에 대해서 가장 가까운 섬을 구하고
-    그 섬에 대해 그룹에 넣고 반복한다
+    
+    while heap:
+        그룹에 속한 node들에 대해서 가장 가까운 섬을 구하고
+        그 섬에 대해 그룹에 넣고 반복한다
 
-    만약 집합의 크기가 섬의 개수 만큼 된다면, break하고 다리의 길이를 리턴한다.
+        if 집합의 크기가 섬의 개수 만큼 된다면,  다리의 길이를 리턴한다.
+    else: return -1
 
 
 '''
@@ -108,37 +111,32 @@ def calc_nearlest_distance(r, c):
 # 함수 3 : MST를 생성하는 함수
 
 def make_mst():
+    bridge_length = 0
+    
     min_heap = []
     visited = [False] * island_count
-    visited[0] = True
-    
-    # 1번 섬에서부터 시작하여 연결된 다리 정보를 최소 힙에 추가
-    for end, dist in enumerate(distance_between_islands[0]):
-        if dist <= 1000:
-            heapq.heappush(min_heap, (dist, 0, end))
-
-    total_distance = 0
-    connected_islands = 1  # 1번 섬은 이미 방문했으므로 1로 초기화
+    group_cnt = 0
+    heapq.heappush(min_heap, (0, 0)) # 0번 섬까지 거리 0
 
     while min_heap:
-        dist, start, end = heapq.heappop(min_heap)
-        
-        if not visited[end]:
+        dist, end = heapq.heappop(min_heap)
+
+        if visited[end] == False:
             visited[end] = True
-            total_distance += dist
-            connected_islands += 1
-            
-            # 현재 연결된 섬에서 새로 연결된 섬으로의 다리 정보를 최소 힙에 추가
-            for next_end, next_dist in enumerate(distance_between_islands[end]):
-                if not visited[next_end] and next_dist <= 1000:
-                    heapq.heappush(min_heap, (next_dist, end, next_end))
+            group_cnt += 1
+            bridge_length += dist
+            for next in range(island_count):
+                
+                if visited[next] == False:
+                    if distance_between_islands[end][next] <= 1000:
+                        heapq.heappush(min_heap, (distance_between_islands[end][next], next))
+        
+        if island_count == group_cnt:
+            return bridge_length
 
-        # 모든 섬이 연결되었으면 종료
-        if connected_islands == island_count:
-            return total_distance
-
-    # 모든 섬이 연결되지 않았으면 -1 반환
     return -1
+            
+
 
 # 입력
 n, m = map(int,input().split())
