@@ -22,6 +22,7 @@ bfs순회 도중
 import sys
 from collections import deque
 input = sys.stdin.readline
+
 BREAK_WALL = 1
 dr = [-1, 0, 1, 0]
 dc = [0, 1, 0, -1]
