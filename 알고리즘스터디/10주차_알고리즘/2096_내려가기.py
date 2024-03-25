@@ -25,11 +25,11 @@ for r in range(1, n):
             next_dp_min[c] = min(dp_min[0], dp_min[1]) + grid[c]
             next_dp_max[c] = max(dp_max[0], dp_max[1]) + grid[c]
         
-        if c == 1:
+        elif c == 1:
             next_dp_min[c] = min(dp_min[0], dp_min[1], dp_min[2]) + grid[c]
             next_dp_max[c] = max(dp_max[0], dp_max[1], dp_max[2]) + grid[c]
         
-        if c == 2:
+        elif c == 2:
             next_dp_min[c] = min(dp_min[1], dp_min[2]) + grid[c]
             next_dp_max[c] = max(dp_max[1], dp_max[2]) + grid[c]
     
