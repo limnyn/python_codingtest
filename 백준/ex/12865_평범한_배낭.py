@@ -38,4 +38,4 @@ for r in range(1, n + 1):
             dp[r][c] = dp[r-1][c]
             
 
-print(dp[r][c])
+print(dp[-1][-1])

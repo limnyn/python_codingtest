@@ -109,7 +109,6 @@ def calc_nearlest_distance(r, c):
 
 
 # 함수 3 : MST를 생성하는 함수
-
 def make_mst():
     bridge_length = 0
     
