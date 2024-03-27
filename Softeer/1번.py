@@ -14,7 +14,7 @@ def open_close():
                 if question < 0:
                     return False
 
-    if (open + question) % 2 == 0:
+    if (open + question) % 2 == 0 and open <= question:
         return True
     return False
 
