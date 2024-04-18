@@ -12,18 +12,6 @@
     
     그러면 경우에 대해서 어떻게 해야할까?
     2차원 행렬에 대해 넣었을 때 안넣었을 때를 계산해 볼까?
-    - 시간 초과
-
-
-    효율적인, 적게 계산할 방법 찾기
-
-    -> 대각선으로 놓기
-
-    비숍은 대각선에 하나만 존재가 가능하다. 
-    따라서 n-queen을 대각선으로 접근해서 풀어보자
-    대각선에 하나만 놓고, 놓았을 때 역 대각선에 존재하는지 보면 된다!
-
-    n*(n+1)
 
         
     
@@ -36,35 +24,31 @@ dr = [-1,-1,1,1]
 dc = [-1,1,-1,1]
 board_bishops = []
 
-def board_setter(bishops):
+def board_setter(next_bishop, board):
     '''
     보드를 받아서 비숍을 설정한 뒤
     '''
     next_board = copy.deepcopy(board)
-    for next_bishop in bishops:    
-        r, c = next_bishop
-        if next_board[r][c] == 2:
-            return False
-        next_board[r][c] = 2
-        for i in range(4):
-            nr, nc = next_bishop
-            while True:
-                nr = nr + dr[i]
-                nc = nc + dc[i]
-                if 0 <= nr < n and 0 <= nc < n:
-                    if next_board[nr][nc] == 2:
-                        return False
-                    next_board[nr][nc] = 2
-                else:
+    r, c = next_bishop
+    next_board[r][c] = 2
+    for i in range(4):
+        nr, nc = next_bishop
+        while True:
+            nr = nr + dr[i]
+            nc = nc + dc[i]
+            if 0 <= nr < n and 0 <= nc < n:
+                if next_board[nc][nc] == 2:
                     break
-                
-    return True
+                next_board[nr][nc] = 2
+            else:
+                break
 
+    return next_board
 
 
 
 bishop_lst = []
-def bishop_comb(r,c,bishops):
+def bishop_comb(r,c,board, bishops):
     global max_bishop, bishop_lst
 
     for i in range(r,n):
@@ -73,13 +57,14 @@ def bishop_comb(r,c,bishops):
                 continue
             if board[i][j] == 1:
                 # 해당 칸에 비숍을 놓지 않았을 때
-
-                bishop_comb(i,j,bishops)
+                bishop_comb(i,j,board, bishops)
                 # 비숍을 놓았을 때
-                if board_setter(bishops + [[i,j]]):
-                    if max_bishop < len(bishops) + 1:
-                        max_bishop = len(bishops) + 1    
-                    bishop_comb(i,j, bishops+[[i, j]])
+                next_board = board_setter((i,j),board)
+                
+                if max_bishop < bishops + 1:
+                    max_bishop = bishops + 1
+                    
+                bishop_comb(i,j, next_board, bishops+1)
                 
 
                 # bishops -= 1
@@ -134,7 +119,7 @@ max_bishop = 0
 bishops = 0
 board = [list(map(int, input().split())) for _ in range(n)]
 
-bishop_comb(0,-1,[])
+bishop_comb(0,-1,board,0)
 
 print(max_bishop)
 
