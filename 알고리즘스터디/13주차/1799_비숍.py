@@ -1,145 +1,109 @@
 # https://www.acmicpc.net/problem/1799
 
 '''
-문제
-    놓을 수 있는 공간이 주어졌을 때
-    비숍을 "가장 많이" 놓는 경우의 비숍의 수
-
-    1 <= N <= 10
-
-접근 
-    모든 경우를 탐색하면서 비숍의 수보다 많은 경우를 출력해야 한다
-    
-    그러면 경우에 대해서 어떻게 해야할까?
-    2차원 행렬에 대해 넣었을 때 안넣었을 때를 계산해 볼까?
-    - 시간 초과
+bishop
+solution explore
 
 
-    효율적인, 적게 계산할 방법 찾기
+목표 - 최대한 많이 놓을 수 있는 경우의 놓은 수
 
-    -> 대각선으로 놓기
+좌상단
+12345
+23456
+34567
+45678
+56789
 
-    비숍은 대각선에 하나만 존재가 가능하다. 
-    따라서 n-queen을 대각선으로 접근해서 풀어보자
-    대각선에 하나만 놓고, 놓았을 때 역 대각선에 존재하는지 보면 된다!
+1 2 3 4 5 6 7 8 9 10
+비숍은 "대각선 당 한 개만 놓을 수 있다"
+따라서 각 대각선 길이 1~10 중 한 개 씩 넣어 보며 조합을 계산해 보면 된다
+좌상단, 우상단 부터 출발하여 한 번 씩 탐색하면 
+10! * 2 -> 7,257,600번
 
-    n*(n+1)
 
-        
-    
-    
+따라서 좌상단 대각선 한번 우상단 대각선 한번 조사하면 끝
+
+
+수정 및 todos
+    비숍의 특성
+        체스판은 흑/백 교차되어 색칠되어 있다
+        이 때 비숍은 흑색 칸에 있다면 흑색 칸에만 영향을 주고 반대쪽 색에는 영향을 주지 못한다
+        따라서 백색 칸에 몇 개가 놓여 있던 흑색에 놓는 경우에 영향을 주지 않는다.
+
+        이를 통해 흑색 칸에 최대한 비숍을 많이 두는 경우 + 백색 칸에 최대한 비숍을 많이 두는 경우
+        두 조합을 나눔으로써 계산수를 줄일 수 있다
+    비숍 방문 처리에 대한 해결법
+        비숍에 대해 매 번 공간을 침해하는 지 계산을 하면 비효율 적이다 
+        따라서 대각선에 대한 level에 대해 하나만 놓을 수 있는 공식이 있다
+        즉 (0,0), (1,1) (2,2) --는 같은 위치이므로 놓을 수 없고
+        (0,1)은 (2,1) (3,2)와 같은 위치이다
+        이는 level에 대해서 j-i+N-1로 방문 처리를 1차원 배열로 확인할 수 있어 계산을 줄일 수 있다
+        이 방법과 비숍의 특성을 적용해서 시간복잡도를 줄여 해결해보자
+    위 방법으로 처음부터 다시짜기
 
 '''
-import sys, copy
-sys.setrecursionlimit(10**6)
-dr = [-1,-1,1,1]
-dc = [-1,1,-1,1]
-board_bishops = []
 
-def board_setter(bishops):
+def n_bishops_left_upper(comb):
     '''
-    보드를 받아서 비숍을 설정한 뒤
+    index 처리에 대해 고민해보기
+    대각선 인덱스는? 
+        level의 갯수만큼 탐색가능
+    좌상단의 대각선 갯수만큼 인덱스를 순회하려면?
+    if level == 3일떄
+        (3 0) (2 1) (1 2) (0 3) 순으로 진행한다
+    이걸 for문으로 인덱스 만드는 코드
+        for i in range(level):
+            r, c = level-i, i
+
+    따라서 해당 과정을 통해 level 별로 r,c에 대해 하나씩 순회해 보면서 level이 n만큼 되었을 때 계산해보기
+    
+    Todos
+        예외 case 검사해보기
     '''
-    next_board = copy.deepcopy(board)
-    for next_bishop in bishops:    
-        r, c = next_bishop
-        if next_board[r][c] == 2:
-            return False
-        next_board[r][c] = 2
+    global result
+    level = len(comb)
+    
+    if level == n:
+
+        result = max(bishop_counter(comb), result)
+    
+    for i in range(level):
+        r, c = level - i, i
+        if board[r][c] != 0: # 비숍을 놓을 수 있는 경우라면
+            if bishop_counter(comb, (r,c)):
+                n_bishops_left_upper(comb + [(r,c)])
+    n_bishops_left_upper(comb+[(-1,-1)]) # 비숍을 선택하지 않은 경우
+    
+
+
+dr = [-1, -1, 1, 1]
+dc = [-1, 1, -1, 1]
+def bishop_counter(comb):
+    '''
+    조합에 유효하면 bishop 갯수 반환
+    조합이 유효하지 않으면 -1 반환
+    '''
+    checker = copy.deepcopy(board)
+    for c_r, c_c in comb:
+        checker[c_r][c_c] = 1
+    for r, c in comb:
         for i in range(4):
-            nr, nc = next_bishop
-            while True:
-                nr = nr + dr[i]
-                nc = nc + dc[i]
-                if 0 <= nr < n and 0 <= nc < n:
-                    if next_board[nr][nc] == 2:
-                        return False
-                    next_board[nr][nc] = 2
-                else:
-                    break
-                
-    return True
+            nr = r + dr[i]
+            nc = c + dc[i]
+            while 0 <= nr < n and 0 <= nc < n:
+                if checker[nr][nc] ==
 
 
+    return -1
 
+import sys, copy
+input = sys.stdin.readline
+if __name__ == "__main__":
+    n = int(input())
+    board = list(map(int, input().split()))
+    result = 0
+    result = max(result, n_bishops_left_upper())
+    # result = max(result, n_bishops_left_upper()) #n_bishops_right_upper 수행하기
 
-bishop_lst = []
-def bishop_comb(r,c,bishops):
-    global max_bishop, bishop_lst
-
-    for i in range(r,n):
-        for j in range(n):
-            if i == r and j <= c:
-                continue
-            if board[i][j] == 1:
-                # 해당 칸에 비숍을 놓지 않았을 때
-
-                bishop_comb(i,j,bishops)
-                # 비숍을 놓았을 때
-                if board_setter(bishops + [[i,j]]):
-                    if max_bishop < len(bishops) + 1:
-                        max_bishop = len(bishops) + 1    
-                    bishop_comb(i,j, bishops+[[i, j]])
-                
-
-                # bishops -= 1
-                
-                
-                
-'''
-5
-1 1 0 1 1
-0 1 0 0 0
-1 0 1 0 1
-1 0 0 0 0
-1 0 1 1 1
-
-3
-0 1 1
-1 1 1
-1 1 1
-
-4
-1 1 1 1
-1 1 1 1
-1 1 1 1
-1 1 1 1
-
-5
-1 1 1 1 1
-1 1 1 1 1
-1 1 1 1 1
-1 1 1 1 1
-1 1 1 1 1
-
-
-8
-1 1 1 1 1 1 1 1
-1 1 1 1 1 1 1 1
-1 1 1 1 1 1 1 1
-1 1 1 1 1 1 1 1
-1 1 1 1 1 1 1 1
-1 1 1 1 1 1 1 1
-1 1 1 1 1 1 1 1
-1 1 1 1 1 1 1 1
-'''
-
-
-        
-
-
-# if __name__ == "__main__":
-n = int(input())
-max_bishop = 0
-bishops = 0
-board = [list(map(int, input().split())) for _ in range(n)]
-
-bishop_comb(0,-1,[])
-
-print(max_bishop)
-
-                
-
-
-
+    
 
