@@ -104,6 +104,6 @@ if __name__ == "__main__":
     result = 0
     result = max(result, n_bishops_left_upper())
     # result = max(result, n_bishops_left_upper()) #n_bishops_right_upper 수행하기
-
+``
     
 
