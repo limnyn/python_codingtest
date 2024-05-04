@@ -1,4 +1,4 @@
-# https://school.programmers.co.kr/learn/courses/30/lessons/알고리즘스터디/15주차/프로그래머스_12913_땅따먹기.py
+# https://school.programmers.co.kr/learn/courses/30/lessons/150368
 
 # 아래는 전역변수들 - solution 외부에서도 users, emoticons를 접근할 수 있게 하기 위해서
 import copy
