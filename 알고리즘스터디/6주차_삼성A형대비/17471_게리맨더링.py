@@ -69,7 +69,7 @@ for i in range(n):
 
 ### 각 조합 별 탐색 ###
 from itertools import combinations
-# 숫자들의 조합을 위한 리스트 [0~n-1]
+# 숫자들의 조합을 위한 리스트 [0~n-1] 
 cmb_num_list = [x for x in range(n)]
 for i in range(1, n):
     comb = combinations(cmb_num_list, i)
