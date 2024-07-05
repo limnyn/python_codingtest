@@ -16,75 +16,46 @@
 [접근]
     이분탐색 - 파라매트릭 서치로 접근해보기
 
-    백준 공유기 설치 문제처럼 구간을 나누는 좌표 간격을 i로 고정한다.문어
+    특정 구간 내의 최대값고 최소값의 차이를 standard로 고정한다.
+    그리고 구간이 standard를 초과하지 않는 단위로 구간을 나눈다
 
-    구간의 갯수가 M으로 제한되어 있다.
+    이 때 정해진 standard에 따라 나눈 구간의 개수가 M개를 초과하면 안된다.
     
-    따라서 배열을 A개로 쪼갰을 때, M개보다 갯수가 많아지면 조건을 수정하고
-    
-    구간에서 X = max(최대-최소)값 이라 할 때 X는 최댓값 - 0을 초과할 수 없다.
-    따라서 해당 값 X를 기준으로 이분탐색을 하며
-    만약 구간수가 M보다 크거나 같으면 mid 값을 증가시키고
-    구간의 수가 M과 같거나 작으면 mid값을 감소시킨다
-    해당 과정을 이분탐색을 통해 반복한다.
-[1, 5, 4, 6, 2, 1, 3, 7]
+    구간의 개수가 M을 초과하면 standard를 줄이고,
+    M과 같거나 작으면 standard를 늘인다.
 
-[1 5 4 6 2 1 3 7]
-idx 0~7
-0~7
-mid = 3
-0부터 리스트 탐색
-[1 5 4 6 2 1 3 7]
-탐색하며 최대-최소값을 mid보다 클 때 까지 탐색하고 mid보다 크지않은 인덱스 반환
-1 = 0
-1 5  = 4 -> mid 보다 크다, 이전까지를 한 구간으로 설정
-[1] [5 4 6 2 1 3 7]
-5 = 0
-5 4 = 1
-5 4 6 = 2
-5 4 6 2 = 4 mid보다 큰 경우, 따라서 [5,4,6]를 구간으로 지정
-[1] [5 4 6] [2 1 3 7]
-2  = 0
-2 1 = 1
-2 1 3 = 2
-2 1 3 7 = 5, mid 초과, [2,1,3]으로 구간 설정
-[1][5 4 6][2 1 3][7] -> 구간의 수가 m인 3 초과
+    최종적으로 구간의 갯수가 m을 넘지 않는 마지막 right가 정답이된다
 
-left : right = 0 : 7 에서
-mid = (mid + 7) // 2로 변경
-
-해당 방식으로 이분탐색을 진행해보자
 '''
 import sys
 def input(): return sys.stdin.readline().rstrip()
 
-def is_possible(mid):
+def section_counter():
     count = 1
-    min_n = float('inf')
-    max_n = float('-inf')
-    
     i = 0
+    min_n, max_n = float('inf'), float('-inf')
     while i < n:
-        min_n = min(min_n, arr[i])
-        max_n = max(max_n, arr[i])
-        if max_n - min_n > mid:
+        min_n = min(arr[i], min_n)
+        max_n = max(arr[i], max_n)
+        if max_n - min_n > standard:
             count += 1
-            max_n = float('-inf')
-            min_n = float('inf')
+            min_n, max_n = float('inf'), float('-inf')
             i -= 1
         i += 1
     return count
+
 
 if __name__ == "__main__":
     n, m = map(int, input().split())
     arr = list(map(int, input().split()))
     
     left, right = 0, max(arr)
+    
     while left < right:
-        mid = (left + right)//2
-        if is_possible(mid) <= m:
-            right = mid
+        standard = (left + right)//2
+        if section_counter() <= m:
+            right = standard
         else:
-            left = mid + 1
+            left = standard + 1
+    
     print(right)
-        
