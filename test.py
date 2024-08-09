@@ -1,4 +1,6 @@
-grid = [list(map(int, input().split()) for _ in range(n))]
+closet = {}
+if closet.get("a"):
+    print(1)
+else:
+    print(2)
 
-grahp[0].append(1)
-print(grahp)
