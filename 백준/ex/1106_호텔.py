@@ -15,16 +15,13 @@ if __name__ == "__main__":
     
     pairs = []
     
-    for _ in range(N):
-        pairs.append(list(map(int, input().split())))
-    
     dp = [float("inf")] * 1100
     dp[0] = 0
     
-    for expense, profit in pairs:
-        for i in range(profit, 1100):
+    for _ in range(N):
+        expense, profit = map(int, input().split())
+        for i in range(profit, len(dp)):
             dp[i] = min(dp[i-profit] + expense, dp[i])
-    
-    print(min(dp[C:]))
-            
         
+
+    print(min(dp[C:]))
