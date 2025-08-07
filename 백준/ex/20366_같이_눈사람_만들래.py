@@ -30,11 +30,10 @@ if __name__ == "__main__":
             
             diff = h2-h1
             
-            if min_diff <= diff:
+            if min_diff <= diff: # 이후 j가 증가할수록 diff는 더 크거나 같기 때문에 생략
                 break
-            if len({x1, x2, y1, y2}) == 4:
+            
+            if len({x1, x2, y1, y2}) == 4: # 4가지 값중 중복된 값이 있으면 set 시 4가 될 수 없음
                 min_diff = diff
                 
-                
-    
     print(min_diff)
