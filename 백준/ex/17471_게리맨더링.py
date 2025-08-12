@@ -19,16 +19,18 @@ node갯수 n = 10일 때 부분집합의 갯수 : 2^10
 
 """
 from collections import deque
-
+from itertools import combinations
+import sys
+def input(): return sys.stdin.readline().rstrip()
 ### "연결"에 대한 구현 함수 ### 
 def is_connected(graph_comb):
     """
     # 각 조합에 대해 
-    # -> 연결이 되어 있으면 인구수 총합,
-    # -> 연결 안되어 있으면 -1
+     -> 연결이 되어 있으면 인구수 총합,
+     -> 연결 안되어 있으면 -1
     """
     #graph_comb 예시 = (0, 3, 4) -> 구획을 (0, 3, 4) 노드와 나머지 노드로 나눈다고 가정할 때
-    visited = [0]*n
+    visited = [0]* (n + 1)
     dq = deque([])
     
     # 연결되어있다면 아무 노드에서 시작해도 
@@ -52,54 +54,35 @@ def is_connected(graph_comb):
     else:
         return -1    
 
+if __name__ == "__main__":
+    n = int(input())
+    
+    population = [0] + [x for x in list(map(int, input().split()))]
+    
+    graph = [[] for _ in range(n + 1)]
+    for start in range(1, n + 1):
+        line = list(map(int, input().split()))
+        line = line[1:]
+        for end in line:
+            graph[start].append(end)
+            graph[end].append(start)
 
-############################# main ##################################
-# 인구 차이 비교를 위해 
-answer = 1e9
-n = int(input())
-graph = []
-# 인구를 입력받는다.
-population = list(map(int,input().split()))
-# 그래프 입력
-for i in range(n):
-    # 그래프 번호를 인덱스를 위해 0~n-1까지 처리하기 위해 -1씩 해준다.
-    line_input = list(map(int,input().split()))
-    line = [x-1 for x in line_input[1:]]
-    graph.append(line)
-
-### 각 조합 별 탐색 ###
-from itertools import combinations
-# 숫자들의 조합을 위한 리스트 [0~n-1]
-cmb_num_list = [x for x in range(n)]
-for i in range(1, n):
-    comb = combinations(cmb_num_list, i)
-    for a in comb:
-        a = list(a)
-        # a 는 부분집합 A
-        b = [x for x in cmb_num_list if x not in a]
-        # print(a, b)
-
-        result_a = is_connected(a)
-        if result_a == -1:
-            continue
-        result_b = is_connected(b)
-        if result_b == -1:
-            continue
-        answer = min(answer, abs(result_a-result_b))
-
-### 결과 출력 ###
-# 구획이 2개가 아니면
-if answer == 1e9:
-    print(-1)
-else:
-    print(answer)
-
-
-# 6
-# 5 2 3 4 1 2
-# 2 2 4
-# 4 1 3 6 5
-# 2 4 2
-# 2 1 3
-# 1 2
-# 1 2
+    population_sub = float("inf")
+    
+    # nC1부터 nC(n/2) 까지 수행함으로서 모든 부분집합 계산
+    for r in range(1, n//2 + 1):
+        combs = combinations(range(1, n+1), r)
+        
+        for comb_a in combs:
+            comb_b = [x for x in range(1, n+1) if x not in comb_a]
+            
+            a_sum = is_connected(comb_a)
+            b_sum = is_connected(comb_b)
+            
+            if a_sum != -1 and b_sum != -1:
+                population_sub = min(population_sub, abs(a_sum - b_sum))
+    
+    if population_sub == float("inf"):
+        print(-1)
+    else:
+        print(population_sub)
