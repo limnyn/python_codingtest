@@ -39,7 +39,8 @@ def dfs(r):
     global count
     
     if r == n:
-        count += 1
+        for i in range(1, n):
+            print(i)
         return
     
     for c in range(n):
